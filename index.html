@@ -145,21 +145,21 @@ function loadBuffer() {
 	document.getElementById("textedit").value = editbuffer;
 }
 function printForm(x) {
-	return stok(format(x));
+	return stok(oK.format(x));
 }
 
-var env = baseEnv();
+var env = oK.baseEnv();
 var entries = [];
 var entryIndex = 0;
 var partial = "";
 var eid = 0;
 
-setIO("0:", 2, print);
-setIO("0:", 4, print);
-setIO("0:", 1, readText);
-setIO("1:", 1, readJSON);
-setIO("5:", 0, printForm);
-setIO("5:", 1, printForm);
+oK.setIO("0:", 2, print);
+oK.setIO("0:", 4, print);
+oK.setIO("0:", 1, readText);
+oK.setIO("1:", 1, readJSON);
+oK.setIO("5:", 0, printForm);
+oK.setIO("5:", 1, printForm);
 
 var repl = document.getElementById("repl");
 var scroll = document.getElementById("scroll");
@@ -200,7 +200,7 @@ A more general introduction to array programming is also provided:
 prompt.focus();
 prompt.onkeydown = processInput;
 scroll.innerHTML =
-	"Welcome to <a href='https://github.com/JohnEarnest/ok' target='_blank'>oK</a> v"+version+
+	"Welcome to <a href='https://github.com/JohnEarnest/ok' target='_blank'>oK</a> v"+oK.version+
 	"<br>(inspired by <a href='http://kparc.com/k.txt' target='_blank'>K5</a>; &#92;h for help)"+
 	"<br>&nbsp;&nbsp;";
 
@@ -257,7 +257,7 @@ function printEnv(filter, label) {
 		var val = env.d.v.v[z]
 		if (filter(val)) {
 			len = Math.max(key.length, len)
-			found[key] = format(val)
+			found[key] = oK.format(val)
 		}
 	}
 	for(var name in found) {
@@ -327,7 +327,7 @@ function processLine() {
 	var parsed = null;
 	try { parsed = parse(" " + partial + "; " + prompt.value); }
 	catch(error) {
-		if (done() && (
+		if (oK.done() && (
 			error.message == "parse error. '}' expected." ||
 			error.message == "parse error. ')' expected." ||
 			error.message == "parse error. ']' expected.")) {
@@ -343,7 +343,7 @@ function processLine() {
 	partial = "";
 	try {
 		var starttime = new Date().getTime();
-		printRepl(escapeHTML(format(run(parsed, env))));
+		printRepl(escapeHTML(oK.format(oK.run(parsed, env))));
 		if (showtime) {
 			var endtime = new Date().getTime();
 			printRepl("completed in "+(endtime-starttime)+"ms.");

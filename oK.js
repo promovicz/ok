@@ -9,6 +9,8 @@
 
 "use strict";
 
+var oK = (function() {
+
 var TN = [
 	"number"    , //  0 : value
 	"char"      , //  1 : value
@@ -962,10 +964,15 @@ function setIO(symbol, slot, func) {
 	verbs[symbol][slot] = func;
 }
 
-this.version = "0.1";
-this.parse = parse;
-this.format = format;
-this.run = run;
-this.Environment = Environment;
-this.baseEnv = baseEnv;
-this.setIO = setIO;
+    return {
+	version: "0.1",
+	parse: parse,
+	format: format,
+	run: run,
+	done: done,
+	Environment: Environment,
+	baseEnv: baseEnv,
+	setIO: setIO,
+    }
+
+})()
