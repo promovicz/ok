@@ -958,10 +958,21 @@ var winimpl    = parse("{$[0>x;3':0,y,0;y(!0|1+(#y)-x)+\\:!x]}")[0];
 var odoimpl    = parse("{+x\\'!*/x}")[0];
 var splitimpl  = parse("{1_'(&x=y)_y:x,y}")[0];
 
-// export the public interface:
+////////////////////////////////////
+//
+//   Public interface
+//
+////////////////////////////////////
+
+// input/output hooks
 function setIO(symbol, slot, func) {
 	if (!(symbol in verbs)) { verbs[symbol]=[null,null,null,null,null,null]; }
 	verbs[symbol][slot] = func;
+}
+
+// parse and run
+function go(exp, env) {
+	return run(parse(exp), env);
 }
 
     return {
@@ -969,6 +980,7 @@ function setIO(symbol, slot, func) {
 	parse: parse,
 	format: format,
 	run: run,
+	go: go,
 	done: done,
 	Environment: Environment,
 	baseEnv: baseEnv,
