@@ -88,13 +88,13 @@ for (var i = 0; i < 2; i++) { ok.setIO('5:', 1, function(x) { return conv.tok(ok
 for (var i = 2; i < 6; i++) { ok.setIO('0:', i, function(x,y) { return writep(0,x,y); }); }
 for (var i = 2; i < 6; i++) { ok.setIO('1:', i, function(x,y) { return writep(1,x,y); }); }
 
-var env = ok.baseEnv();
+var env = oK.baseEnv();
 
 // run user prelude file if exists
 try {
 	var preludeFile = os.homedir() + "/.config/okrc.k"
 	var program = fs.readFileSync(preludeFile, 'utf8');
-	ok.run(ok.parse(program), env)
+	oK.run(oK.parse(program), env)
 } catch (err) {
 	if (err.code != 'ENOENT') throw err
 }
@@ -103,7 +103,7 @@ try {
 if (process.argv.length > 2) {
 	var program = fs.readFileSync(process.argv[2], 'utf8');
 	env.put('x', true, conv.tok(process.argv.slice(3)))
-	process.stdout.write(ok.format(ok.run(ok.parse(program), env)) + '\n');
+	process.stdout.write(oK.format(oK.run(oK.parse(program), env)) + '\n');
 	process.exit(0);
 }
 
@@ -140,7 +140,7 @@ rl.on('line', function (line) {
 		if (line.trim()) {
 			if (!showhelp) {
 				var starttime = new Date().getTime();
-				var output = ok.format(ok.run(ok.parse(line), env)) + '\n';
+				var output = oK.format(oK.run(oK.parse(line), env)) + '\n';
 				if (showtime) {
 					var endtime = new Date().getTime();
 					output += "completed in "+(endtime-starttime)+"ms.\n";
